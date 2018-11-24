@@ -101,6 +101,45 @@ Lista* push(Lista* l, int elem)
 	return l;
 }
 
+Lista* pushOrdenado(Lista* l, int elem)
+{
+	
+	No* novo = (No*)malloc(sizeof(No));
+	novo->valor = elem;
+
+	if(l->inicio == NULL)
+	{
+		l->inicio = novo;
+		novo->prox = NULL;
+	}
+	else
+	{
+		if(l->inicio->valor >= novo->valor)
+		{
+			novo->prox = l->inicio;
+			l->inicio = novo;
+		}
+		else
+		{
+			No *aux = l->inicio;
+			while(aux->prox !=NULL && aux->prox->valor <= elem)
+				aux=aux->prox;
+				
+			if(aux->prox != NULL)
+			{
+				novo->prox = aux->prox;
+				aux->prox = novo;
+			}
+			else
+			{
+				aux->prox = novo;
+				novo->prox = NULL;
+			}
+		}
+	}
+	return l;
+}
+
 /**
 FUNÇÃO: pop
 DESCRIÇÃO: Função que remove um elemento da lista de acordo com o valor do elemento. A função
@@ -188,6 +227,16 @@ No* pesquisar(Lista* l, int elem)
 	// Ou a lista está vazia ou o elemento não existente
 	return NULL;
 
+}
+
+void percorreListaPush(Lista *l, Lista *lo)
+{
+	No *aux = l->inicio;
+	while(aux != NULL)
+	{
+		pushOrdenado(lo,aux->valor);
+		aux = aux->prox;
+	}
 }
 
 /**
