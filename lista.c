@@ -101,42 +101,57 @@ Lista* push(Lista* l, int elem)
 	return l;
 }
 
+//função de adicionar elementos na lista de forma ordenada
 Lista* pushOrdenado(Lista* l, int elem)
 {
-	
+	// Cria uma nova caixinha para armazenar o novo elemento. Este elemento é do tipo
+	// nó lista. Portanto, ao usar o malloc para criar dinamicamente este novo elemento
+	// devemos converter o retorno da função malloc para o tipo NoLista.
 	No* novo = (No*)malloc(sizeof(No));
+	//novo->valor recebe o valor a ser incluido.
 	novo->valor = elem;
 
+	//faz a verificação se a lista é vazia
 	if(l->inicio == NULL)
 	{
+		//aponta o inicio para o novo
 		l->inicio = novo;
+		//aponta o ponteiro prox para o nulo
 		novo->prox = NULL;
 	}
+	//se não, ele começa a fazer uma nova verificação
 	else
-	{
+	{//se o valor de inicio for maior que o novo valor à ser inserido
 		if(l->inicio->valor >= novo->valor)
-		{
+		{//NOVO seta prox aponta para o inicio, ou seja ele vai pra trás do primeiro nó
 			novo->prox = l->inicio;
+			// seta inicio aponta para o novo
 			l->inicio = novo;
 		}
+		// se o valor for maior
 		else
-		{
+		{//cria um novo nó apontando para o inicio
 			No *aux = l->inicio;
+			//enquanto o aux->prox for diferente de nulo e aux->prox->valor for menor que o elemento
 			while(aux->prox !=NULL && aux->prox->valor <= elem)
-				aux=aux->prox;
-				
+				aux=aux->prox;//aux aponta para o aux->prox
+				//aux->prox for diferente nulo
 			if(aux->prox != NULL)
-			{
+			{//novo->prox aponta para o aux->prox
 				novo->prox = aux->prox;
+				//aux->prox aponta para o novo
 				aux->prox = novo;
 			}
+			//se for igual a nulo
 			else
-			{
+			{//aux->prox aponta para o novo
 				aux->prox = novo;
+				//novo->prox aponta para o nulo
 				novo->prox = NULL;
 			}
 		}
 	}
+	//retorna a lista
 	return l;
 }
 
