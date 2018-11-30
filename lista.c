@@ -256,39 +256,62 @@ int anteriorM(Lista *l, int menor)
 		return j->valor;
 }
 
+void ordenaVezes(Lista *l)
+{
+		No *i = l->inicio;
+		int count=0;
+		while(i != NULL)
+				count++;
+			i = i->prox;
+		printf("%d",count);
+		int k;
+		for(k=0;k<count;k++)
+		{
+		ordena(l);
+		}
+		
+}
+
 void ordena(Lista *l)
 {
 	No *i = l->inicio;
 	
-	while(i != NULL)
-	{
+	while(i->prox != NULL){
 		int antN=0;
 		int menor;
 		No *min = i;
 		No *j = i->prox;
 		while(j != NULL)
 		{
-			if(min->valor > j->valor){
+			if(min->valor < j->valor){
 				min = j;
-				menor = min->valor;
 			}
 			j = j->prox;
 		}
 		antN = anteriorM(l,min->valor);
-		printf("%d\n",antN);
+		
+		if(i->valor != min->valor)
+		{
+		
 		No *ant = i;
-		while(ant->valor != antN)
+		
+		while(l->inicio->valor != antN)
 			ant = ant->prox;
-				
+				printf("%d\n",ant->valor);
 				ant->prox = min->prox;
-				min->prox = i;
-				if(min->prox == i)
-					l->inicio = min;
-		printf("\n");
-	imprimeLista(l);
-	printf("\n");
+				min->prox = l->inicio;
+				l->inicio = min;
+		
+		}else
+		{
+		printf("%d\n",antN);
 		i = i->prox;
-	}
+		}
+		printf("\n");
+		imprimeLista(l);
+		printf("\n");
+		
+		}
 }
 
 void ordena2(Lista *l)

@@ -34,7 +34,7 @@ int main()
 	printf("\n");
 	imprimeLista(l);
 	printf("\n");
-	ordena2(l);
+	ordena(l);
 	//percorreListaPush(l, lo);
 	
 	printf("\n");

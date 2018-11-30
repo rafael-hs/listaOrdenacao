@@ -30,5 +30,6 @@ int anteriorM(Lista*, int);
 void ordena(Lista*);
 void ordena2(Lista*);
 void percorreListaPush(Lista*, Lista*);
+void ordenaVezes(Lista*);
 
 #endif /*__LISTA_H_*/
