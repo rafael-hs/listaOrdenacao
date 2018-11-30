@@ -25,6 +25,10 @@ Lista* pushOrdenado(Lista*, int);
 Lista* pop(Lista*, int);
 No* pesquisar(Lista*, int);
 void imprimeLista(Lista*);
+int menor(Lista*);
+int anteriorM(Lista*, int);
+void ordena(Lista*);
+void ordena2(Lista*);
 void percorreListaPush(Lista*, Lista*);
 
 #endif /*__LISTA_H_*/

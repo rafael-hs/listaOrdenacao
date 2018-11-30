@@ -244,6 +244,70 @@ No* pesquisar(Lista* l, int elem)
 
 }
 
+int anteriorM(Lista *l, int menor)
+{
+	No *i = l->inicio;
+		No *ant = i;
+		while(ant->prox->valor != menor)
+			ant = ant->prox;
+		No *j = i;
+		j = ant;
+		
+		return j->valor;
+}
+
+void ordena(Lista *l)
+{
+	No *i = l->inicio;
+	
+	while(i != NULL)
+	{
+		int antN=0;
+		int menor;
+		No *min = i;
+		No *j = i->prox;
+		while(j != NULL)
+		{
+			if(min->valor > j->valor){
+				min = j;
+				menor = min->valor;
+			}
+			j = j->prox;
+		}
+		antN = anteriorM(l,min->valor);
+		printf("%d\n",antN);
+		No *ant = i;
+		while(ant->valor != antN)
+			ant = ant->prox;
+				
+				ant->prox = min->prox;
+				min->prox = i;
+				if(min->prox == i)
+					l->inicio = min;
+		printf("\n");
+	imprimeLista(l);
+	printf("\n");
+		i = i->prox;
+	}
+}
+
+void ordena2(Lista *l)
+{
+	for(No* i = l->inicio; i->prox != NULL; i= i->prox)
+	{
+		No* menor = i;
+		for(No* j = i->prox; j != NULL; j = j->prox)
+		{
+			if(j->valor < menor->valor)
+				menor = j;
+		
+		int aux = i->valor;
+		i->valor = menor->valor;
+		menor->valor = aux;
+		}
+	}
+}
+
 void percorreListaPush(Lista *l, Lista *lo)
 {
 	No *aux = l->inicio;
