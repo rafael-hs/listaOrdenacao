@@ -27,6 +27,7 @@ No* pesquisar(Lista*, int);
 void imprimeLista(Lista*);
 int menor(Lista*);
 int anteriorM(Lista*, int);
+int anteriorI(Lista*, int);
 void ordena(Lista*);
 void ordena2(Lista*);
 void percorreListaPush(Lista*, Lista*);

@@ -250,10 +250,17 @@ int anteriorM(Lista *l, int menor)
 		No *ant = i;
 		while(ant->prox->valor != menor)
 			ant = ant->prox;
-		No *j = i;
-		j = ant;
 		
-		return j->valor;
+		return ant->valor;
+}
+
+int anteriorI(Lista *l, int i)
+{
+		No *antI = l->inicio;
+		while(antI->prox->valor != i)
+			antI = antI->prox;
+		
+		return antI->valor;
 }
 
 void ordenaVezes(Lista *l)
@@ -272,41 +279,64 @@ void ordenaVezes(Lista *l)
 		
 }
 
+
 void ordena(Lista *l)
 {
 	No *i = l->inicio;
 	
-	while(i->prox != NULL){
+	while(i != NULL){
 		int antN=0;
+		int antI=0;
 		int menor;
 		No *min = i;
 		No *j = i->prox;
 		while(j != NULL)
 		{
-			if(min->valor < j->valor){
+			if(min->valor > j->valor)
+			{
 				min = j;
 			}
 			j = j->prox;
 		}
+		printf("\n");
+		imprimeLista(l);
+		printf("\n");
+		printf("valor minimo: %d\n", min->valor);
 		antN = anteriorM(l,min->valor);
-		
-		if(i->valor != min->valor)
-		{
+		printf("valor anterior a min: %d\n", antN);
 		
 		No *ant = i;
-		
-		while(l->inicio->valor != antN)
+		No *antPi = l->inicio;
+		while(ant->valor != antN)
 			ant = ant->prox;
-				printf("%d\n",ant->valor);
+			
+			if(min->valor < l->inicio->valor)
+			{
 				ant->prox = min->prox;
 				min->prox = l->inicio;
 				l->inicio = min;
-		
-		}else
-		{
-		printf("%d\n",antN);
-		i = i->prox;
-		}
+			}
+			else
+			{
+			if(i->valor == min->valor)
+			{
+				i = i->prox;
+			printf("entrou if\n");
+			}
+			else
+			{			
+			antI = anteriorI(l,i->valor);
+			printf("valor anterior a I: %d\n", antI);
+			
+			while(antPi->valor != antI)
+				antPi = antPi->prox;
+			
+			antPi->prox = ant->prox;
+			ant->prox = min->prox;
+			min->prox = i;
+			} 
+			}
+			
 		printf("\n");
 		imprimeLista(l);
 		printf("\n");

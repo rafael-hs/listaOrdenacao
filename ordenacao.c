@@ -36,7 +36,6 @@ int main()
 	printf("\n");
 	ordena(l);
 	//percorreListaPush(l, lo);
-	
 	printf("\n");
 	imprimeLista(l);
 	printf("\n");
