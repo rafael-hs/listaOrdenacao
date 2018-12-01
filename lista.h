@@ -11,6 +11,7 @@ typedef struct no
 
 typedef struct lista
 {
+		int size;
     No *inicio;
 } Lista;
 //endregion
@@ -24,11 +25,16 @@ Lista* push(Lista*, int);
 Lista* pushOrdenado(Lista*, int);
 Lista* pop(Lista*, int);
 No* pesquisar(Lista*, int);
+int index(Lista* , No*);
+void trocaNo(Lista*, No*, No*);
+No* atPos(Lista*, int);
+void ordenacaoSort(Lista*);
 void imprimeLista(Lista*);
-int menor(Lista*);
+No* menor(Lista*, int);
 int anteriorM(Lista*, int);
 int anteriorI(Lista*, int);
 void ordena(Lista*);
+void ordenacao(Lista*);
 void ordena2(Lista*);
 void percorreListaPush(Lista*, Lista*);
 void ordenaVezes(Lista*);

@@ -96,7 +96,7 @@ Lista* push(Lista* l, int elem)
         // liga o último elemento da lista ao novo elemento.
         aux->prox = novo;
     }
-
+	l->size = l->size+1;
 	// Retorna a estrutura cabeçalho da lista
 	return l;
 }
@@ -151,6 +151,7 @@ Lista* pushOrdenado(Lista* l, int elem)
 			}
 		}
 	}
+	l->size = l->size+1;
 	//retorna a lista
 	return l;
 }
@@ -207,7 +208,8 @@ Lista* pop(Lista* l, int elem)
 		else
 			printf("\nElemento nao existe na lista\n\n");
 	}
-
+	if(l->inicio != NULL)
+		l->size = l->size-1;
 	// Retorna a estrutura cabeçalho l, que agora está sem o primeiro elemento
 	return l;
 }
@@ -263,6 +265,25 @@ int anteriorI(Lista *l, int i)
 		return antI->valor;
 }
 
+No* menor(Lista *l, int index)
+{
+	No *pointer = atPos(l,index);
+	
+	if (pointer != NULL)
+	{
+		No *min = pointer;
+		while(pointer !=NULL)
+		{
+			if(pointer->valor < min->valor)
+				min = pointer;
+				
+		pointer = pointer->prox;
+		}
+	return min;
+	}
+	return NULL;
+}
+
 void ordenaVezes(Lista *l)
 {
 		No *i = l->inicio;
@@ -279,7 +300,111 @@ void ordenaVezes(Lista *l)
 		
 }
 
+No* atPos(Lista *l, int index)
+{
+	if(index >= 0 && index < l->size)
+	{
+		No *aux = l->inicio;
+			
+		int i;
+		for(i=0; i < index; i++)
+		{
+			aux = aux->prox;
+		}
+		return aux;
+	}
+	
+	return NULL;
+}
 
+
+int index(Lista* l, No* No1)
+{
+		if(No1 != NULL)
+		{
+			No* pointer = l->inicio; 
+			int index = 0;
+			
+			while(pointer != No1 && pointer != NULL)
+			{
+				pointer = pointer->prox;
+				index++;
+			}
+			if(pointer != NULL)
+				return index;
+		}
+		
+		return -1;
+
+}
+
+void ordenacaoSort(Lista *l)
+{
+	int i =0;
+	for(i=0; i < l->size - 1; i++)
+		trocaNo(l, atPos(l,i), menor(l,i));
+		
+}
+
+void trocaNo(Lista *l, No* No1, No* No2)
+{
+	if(No1 == No2)
+		return;
+		
+	int indexA = index(l,No1);
+	int indexB = index(l,No2);
+	
+	if(indexA == -1 || indexB == -1)
+		return; 
+	
+	if(indexA > indexB)
+	{
+		No1 = No2;
+		No2 = atPos(l,No1);
+		
+		indexA = indexB;
+		indexB = index(l,No2);
+	}
+	
+	No *pb = atPos(l, indexB - 1);
+	
+	if(No1 == l->inicio)
+	{
+		l->inicio = No2;
+	}
+	else
+	{
+		No *pa = atPos(l,indexA -1);
+		pa->prox = No2;
+	}
+	
+	pb->prox = No1;
+	
+	No *ponto = No1->prox;
+	No1->prox = No2->prox;
+	No2->prox = ponto;
+}
+void ordenacao(Lista *l)
+{
+	No *aux = l->inicio;
+	
+	while(aux != NULL)
+	{
+		
+		No *aux1 = aux;
+		No *aux2 = aux->prox;
+		
+		if(aux->valor > aux2->valor)
+		{
+			aux1 = aux2->prox;
+			aux2->prox = aux;
+			aux->prox = aux1;
+			
+		}
+		aux = aux->prox;
+	}
+
+}
 void ordena(Lista *l)
 {
 	No *i = l->inicio;
@@ -310,7 +435,7 @@ void ordena(Lista *l)
 		while(ant->valor != antN)
 			ant = ant->prox;
 			
-			if(min->valor < l->inicio->valor)
+			if(min->valor <= l->inicio->valor)
 			{
 				ant->prox = min->prox;
 				min->prox = l->inicio;
